@@ -1,6 +1,4 @@
 <p align="center">
-    <a href="https://github.com/tomarv2/terraform-aws-lb/actions/workflows/unit_test.yml" alt="Unit Tests">
-        <img src="https://github.com/tomarv2/terraform-aws-lb/actions/workflows/unit_test.yml/badge.svg?branch=main" /></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
         <img src="https://img.shields.io/github/license/tomarv2/terraform-aws-lb" /></a>
     <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
