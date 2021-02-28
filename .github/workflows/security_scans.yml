@@ -34,5 +34,7 @@ jobs:
           api-key: ${{ secrets.BRIDGECREW_API_KEY }}
           directory: "."
           soft_fail: false
-          skip_check: CKV_AWS_65
+          skip_check:
+            - CKV_AWS_91 # Ensure the ELBv2 (Application/Network) has access logging enabled
+            - CKV_AWS_103 # "check_name": "Ensure that load balancer is using TLS 1.2
           output_format: json
