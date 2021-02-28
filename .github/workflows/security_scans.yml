@@ -35,6 +35,5 @@ jobs:
           directory: "."
           soft_fail: false
           skip_check:
-            - CKV_AWS_91 # Ensure the ELBv2 (Application/Network) has access logging enabled
-            - CKV_AWS_103 # "check_name": "Ensure that load balancer is using TLS 1.2
+            - CKV_AWS_91, CKV_AWS_103
           output_format: json
