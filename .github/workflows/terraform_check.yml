@@ -30,10 +30,10 @@ jobs:
         with:
           terraform_version: 0.14.7
 
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-        continue-on-error: false
+#      - name: Terraform Validate
+#        id: validate
+#        run: terraform validate -no-color
+#        continue-on-error: false
 
       - name: Terraform fmt
         id: fmt
