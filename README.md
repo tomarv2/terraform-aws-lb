@@ -15,7 +15,7 @@
 
 # AWS Load Balancer
 
-Terraform to create Load Balancer on AWS.
+Terraform to create Load Balancer.
 
 ## Versions
 
@@ -78,7 +78,7 @@ tf -cloud aws apply -var-file <path to .tfvars file>
 tf -cloud aws destroy -var-file <path to .tfvars file>
 ```
 
-Please refer to example directory [link](example/README.md) for references.
+Please refer to example directory [link](example) for references.
 
 
 ## Inputs

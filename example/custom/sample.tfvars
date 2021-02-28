@@ -5,5 +5,5 @@ profile_to_use              = "default"
 # ------------------------------------------------------------------
 # Note: Do not change teamid and prjid once set.
 teamid                      = "rumse"
-prjid                       = "demo-lbp"
+prjid                       = "demo-lb"
 
