@@ -51,10 +51,7 @@ export TF_AWS_BUCKET_REGION=us-west-2
 export PATH=$PATH:/usr/local/bin/
 ```  
 
-- Update:
-```
-example/main.tf
-```
+- Updated `examples` directory with required values 
 
 - Run and verify the output before deploying:
 ```
@@ -71,7 +68,6 @@ tf -cloud aws apply -var-file <path to .tfvars file>
 tf -cloud aws destroy -var-file <path to .tfvars file>
 ```
 
-
 > ❗️ **Important** - Two variables are required for using `tf` package:
 >
 > - teamid
@@ -85,6 +81,7 @@ tf -cloud aws destroy -var-file <path to .tfvars file>
 >
 > For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
 
+##### Network Load Balancer
 
 ```
 module "load_balancer" {
