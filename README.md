@@ -13,9 +13,7 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-# AWS Load Balancer
-
-Terraform to create Load Balancer.
+# Terraform module to create AWS Load Balancer
 
 ## Versions
 
