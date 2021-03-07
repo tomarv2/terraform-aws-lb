@@ -55,13 +55,8 @@ export PATH=$PATH:/usr/local/bin/
 
 - Update:
 ```
-example/custom/sample.tfvars
+example/main.tf
 ```
-
-- Change to: 
-```
-example/base
-``` 
 
 - Run and verify the output before deploying:
 ```
@@ -78,8 +73,52 @@ tf -cloud aws apply -var-file <path to .tfvars file>
 tf -cloud aws destroy -var-file <path to .tfvars file>
 ```
 
-Please refer to example directory [link](example) for references.
 
+> ❗️ **Important** - Two variables are required for using `tf` package:
+>
+> - teamid
+> - prjid
+>
+> These variables are required to set backend path in the remote storage.
+> Variables can be defined using:
+>
+> - As `inline variables` e.g.: `-var='teamid=demo-team' -var='prjid=demo-project'`
+> - Inside `.tfvars` file e.g.: `-var-file=<tfvars file location> `
+>
+> For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
+
+
+```
+module "load_balancer" {
+  source                      = "../"
+
+  email                       = "demo@demo.com"
+  account_id                  = "123456789012"
+  profile_to_use              = "default"
+  aws_region                  = "us-west-2"
+  lb_port                     = ["22", "80", "443"]
+  target_group_arn            = "target_group_arn"
+  # ------------------------------------------------------------------
+  # Note: Do not change teamid and prjid once set.
+  teamid                      = var.teamid
+  prjid                       = var.prjid
+}
+```
+
+Please refer to examples directory [link](examples) for references.
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14 |
+| aws | ~> 3.29 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 3.29 |
 
 ## Inputs
 
@@ -107,7 +146,7 @@ Please refer to example directory [link](example) for references.
 | prjid | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `any` | n/a | yes |
 | profile\_to\_use | Getting values from ~/.aws/credentials | `any` | n/a | yes |
 | security\_groups\_to\_use | Security groups to use | `list` | `[]` | no |
-| target\_group\_arn | target group arn | `list` | n/a | yes |
+| target\_group\_arn | target group arn | `list(any)` | n/a | yes |
 | teamid | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `any` | n/a | yes |
 | unhealthy\_threshold | load balancer unhealthy threshold | `string` | `""` | no |
 
@@ -120,4 +159,3 @@ Please refer to example directory [link](example) for references.
 | lb\_listener | load balancer listener |
 | lb\_type | load balancer type |
 | lb\_zoneid | zone id of the load balancer |
-

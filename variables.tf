@@ -16,7 +16,7 @@ variable "profile_to_use" {
 
 variable "security_groups_to_use" {
   description = "Security groups to use"
-  default = []
+  default     = []
 }
 
 variable "aws_region" {
@@ -60,12 +60,12 @@ variable "healthcheck_matcher" {
 
 variable "healthcheck_retries" {
   description = "load balancer healthcheck retries"
-  default = 2
+  default     = 2
 }
 
 variable "healthcheck_start_period" {
   description = "load balancer healthcheck start period"
-  default = 120
+  default     = 120
 }
 
 variable "is_public" {
@@ -85,12 +85,12 @@ variable "lb_protocol" {
 
 variable "lb_port" {
   description = "load balancer port"
-  default = [80]
+  default     = [80]
 }
 
 variable "alb_cert_arn" {
   description = "application load balancer certificate arn"
-    default     = ""
+  default     = ""
 }
 
 variable "alb_ssl_policy" {
@@ -105,7 +105,7 @@ variable "lb_action_type" {
 
 variable "target_group_arn" {
   description = "target group arn"
-  type = list
+  type        = list(any)
 }
 
 variable "https_listeners" {
@@ -116,5 +116,5 @@ variable "https_listeners" {
 
 variable "enable_cross_zone_load_balancing" {
   description = "enable cross zone load balancing used for nlb"
-  default = ""
+  default     = ""
 }

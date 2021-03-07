@@ -3,10 +3,8 @@ name: Security Scans
 on:
   push:
     branches:
-      - "main"
-      - "qa"
-      - "develop"
-      - "feature/*"
+      - develop
+      - main
     paths-ignore:
       - 'README.md'
       - 'LICENSE'
@@ -20,19 +18,17 @@ on:
       - '**.md'
 
 jobs:
-  go-tests:
+  scans:
     name: Security Scans
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Security Scan
-        id: Bridgecrew
-        uses: bridgecrewio/bridgecrew-action@master
+      - name: Checkov Scan
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          api-key: ${{ secrets.BRIDGECREW_API_KEY }}
           directory: "."
-          soft_fail: false
+          framework: terraform # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
           skip_check: CKV_AWS_91,CKV_AWS_103
           output_format: json
