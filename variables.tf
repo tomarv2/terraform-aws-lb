@@ -12,6 +12,7 @@ variable "prjid" {
 
 variable "profile_to_use" {
   description = "Getting values from ~/.aws/credentials"
+  default = "default"
 }
 
 variable "security_groups_to_use" {
