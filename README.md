@@ -1,4 +1,6 @@
 <p align="center">
+    <a href="https://github.com/tomarv2/terraform-google-network/actions/workflows/security_scans.yml" alt="Security Scans">
+        <img src="https://github.com/tomarv2/terraform-google-network/actions/workflows/security_scans.yml/badge.svg?branch=main" /></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
         <img src="https://img.shields.io/github/license/tomarv2/terraform-aws-lb" /></a>
     <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
@@ -20,10 +22,8 @@
 - Module tested for Terraform 0.14.
 - AWS provider version [3.29.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases
-- `tags` releases: Tags are pinned with versions (use latest     
-        <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
-        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-lb" /></a> 
-  in your releases)
+- `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
+        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-lb" /></a> in your releases)
 
 **NOTE:** 
 
@@ -55,17 +55,17 @@ export PATH=$PATH:/usr/local/bin/
 
 - Run and verify the output before deploying:
 ```
-tf -cloud aws plan
+tf -cloud aws plan -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to deploy:
 ```
-tf -cloud aws apply
+tf -cloud aws apply -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to destroy:
 ```
-tf -cloud aws destroy
+tf -cloud aws destroy -var='teamid=foo' -var='prjid=bar'
 ```
 
 > ❗️ **Important** - Two variables are required for using `tf` package:
@@ -87,13 +87,11 @@ tf -cloud aws destroy
 module "load_balancer" {
   source                      = "../"
 
-  email                       = "demo@demo.com"
   account_id                  = "123456789012"
-  profile_to_use              = "default"
   aws_region                  = "us-west-2"
   lb_port                     = ["22", "80", "443"]
   target_group_arn            = "target_group_arn"
-  # ------------------------------------------------------------------
+  # ----------------------------------------------
   # Note: Do not change teamid and prjid once set.
   teamid                      = var.teamid
   prjid                       = var.prjid
@@ -123,7 +121,6 @@ Please refer to examples directory [link](examples) for references.
 | alb\_cert\_arn | application load balancer certificate arn | `string` | `""` | no |
 | alb\_ssl\_policy | application load balancer ssl policy | `string` | `""` | no |
 | aws\_region | The AWS region to create resources | `string` | `"us-west-2"` | no |
-| email | email address to be used for tagging (suggestion: use group email address) | `any` | n/a | yes |
 | enable\_cross\_zone\_load\_balancing | enable cross zone load balancing used for nlb | `string` | `""` | no |
 | healthcheck\_interval | load balancer healthcheck interval | `string` | `""` | no |
 | healthcheck\_matcher | load balancer healthcheck matcher | `string` | `""` | no |
