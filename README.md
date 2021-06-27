@@ -98,8 +98,8 @@ module "load_balancer" {
 
   account_id                  = "123456789012"
   aws_region                  = "us-west-2"
-  lb_port                     = ["22", "80", "443"]
-  target_group_arn            = "target_group_arn"
+  lb_port                     = ["80"]
+  target_group_arn            = ["target_group_arn"]
   # ----------------------------------------------
   # Note: Do not change teamid and prjid once set.
   teamid                      = var.teamid
