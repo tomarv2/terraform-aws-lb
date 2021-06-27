@@ -1,24 +1,24 @@
 output "lb_arn" {
   description = "arn of the load balancer"
-  value = module.load_balancer.*.lb_arn
+  value       = aws_lb.lb.*.arn
 }
 
 output "lb_type" {
   description = "load balancer type"
-  value = module.load_balancer.*.lb_type
+  value       = aws_lb.lb.*.load_balancer_type
 }
 
 output "lb_id" {
   description = "load balancer id"
-  value = module.load_balancer.*.lb_id
+  value       = aws_lb.lb.*.id
 }
 
 output "lb_listener" {
   description = "load balancer listener"
-  value = module.load_balancer.*.lb_listener
+  value       = aws_lb_listener.listener
 }
 
 output "lb_zoneid" {
   description = "zone id of the load balancer"
-  value = module.load_balancer.*.lb_zoneid
+  value       = aws_lb.lb.*.zone_id
 }

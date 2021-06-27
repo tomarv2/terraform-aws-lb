@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://github.com/tomarv2/terraform-google-network/actions/workflows/security_scans.yml" alt="Security Scans">
-        <img src="https://github.com/tomarv2/terraform-google-network/actions/workflows/security_scans.yml/badge.svg?branch=main" /></a>
+    <a href="https://github.com/tomarv2/terraform-google-network/actions/workflows/pre-commit.yml" alt="Pre Commit">
+        <img src="https://github.com/tomarv2/terraform-google-network/actions/workflows/pre-commit.yml/badge.svg?branch=main" /></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
         <img src="https://img.shields.io/github/license/tomarv2/terraform-aws-lb" /></a>
     <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
@@ -19,67 +19,76 @@
 
 ## Versions
 
-- Module tested for Terraform 0.14.
-- AWS provider version [3.29.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
-- `main` branch: Provider versions not pinned to keep up with Terraform releases
+- Module tested for Terraform 1.0.1.
+- AWS provider version [3.47.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- `main` branch: Provider versions not pinned to keep up with Terraform releases.
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
-        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-lb" /></a> in your releases)
-
-**NOTE:** 
-
-- Read more on [tfremote](https://github.com/tomarv2/tfremote)
+        <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-lb" /></a>).
 
 ## Usage
 
-Recommended method:
+### Option 1:
 
-- Create python 3.6+ virtual environment 
+```
+terrafrom init
+terraform plan -var='teamid=tryme' -var='prjid=project1'
+terraform apply -var='teamid=tryme' -var='prjid=project1'
+terraform destroy -var='teamid=tryme' -var='prjid=project1'
+```
+**Note:** With this option please take care of remote state storage
+
+### Option 2:
+
+#### Recommended method (stores remote state in S3 using `prjid` and `teamid` to create directory structure):
+
+- Create python 3.6+ virtual environment
 ```
 python3 -m venv <venv name>
 ```
 
 - Install package:
 ```
-pip install tfremote
+pip install tfremote --upgrade
 ```
 
 - Set below environment variables:
 ```
 export TF_AWS_BUCKET=<remote state bucket name>
-export TF_AWS_PROFILE=default
 export TF_AWS_BUCKET_REGION=us-west-2
-export PATH=$PATH:/usr/local/bin/
-```  
+export TF_AWS_PROFILE=<profile from ~/.ws/credentials>
+```
+
+or
+
+- Set below environment variables:
+```
+export TF_AWS_BUCKET=<remote state bucket name>
+export TF_AWS_BUCKET_REGION=us-west-2
+export AWS_ACCESS_KEY_ID=<aws_access_key_id>
+export AWS_SECRET_ACCESS_KEY=<aws_secret_access_key>
+```
 
 - Updated `examples` directory with required values.
 
 - Run and verify the output before deploying:
 ```
-tf -cloud aws plan -var='teamid=foo' -var='prjid=bar'
+tf -c=aws plan -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to deploy:
 ```
-tf -cloud aws apply -var='teamid=foo' -var='prjid=bar'
+tf -c=aws apply -var='teamid=foo' -var='prjid=bar'
 ```
 
 - Run below to destroy:
 ```
-tf -cloud aws destroy -var='teamid=foo' -var='prjid=bar'
+tf -c=aws destroy -var='teamid=foo' -var='prjid=bar'
 ```
 
-> ❗️ **Important** - Two variables are required for using `tf` package:
->
-> - teamid
-> - prjid
->
-> These variables are required to set backend path in the remote storage.
-> Variables can be defined using:
->
-> - As `inline variables` e.g.: `-var='teamid=demo-team' -var='prjid=demo-project'`
-> - Inside `.tfvars` file e.g.: `-var-file=<tfvars file location> `
->
-> For more information refer to [Terraform documentation](https://www.terraform.io/docs/language/values/variables.html)
+**NOTE:**
+
+- Read more on [tfremote](https://github.com/tomarv2/tfremote)
+---
 
 ##### Network Load Balancer
 
@@ -104,50 +113,54 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.14 |
-| aws | ~> 3.29 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.47 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.29 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 3.47.0 |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_global"></a> [global](#module\_global) | git::git@github.com:tomarv2/terraform-global.git//aws | v0.0.1 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_lb.lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
+| [aws_lb_listener.listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| account\_id | aws account id | `any` | n/a | yes |
-| alb\_cert\_arn | application load balancer certificate arn | `string` | `""` | no |
-| alb\_ssl\_policy | application load balancer ssl policy | `string` | `""` | no |
-| aws\_region | The AWS region to create resources | `string` | `"us-west-2"` | no |
-| enable\_cross\_zone\_load\_balancing | enable cross zone load balancing used for nlb | `string` | `""` | no |
-| healthcheck\_interval | load balancer healthcheck interval | `string` | `""` | no |
-| healthcheck\_matcher | load balancer healthcheck matcher | `string` | `""` | no |
-| healthcheck\_path | load balancer healthcheck path | `string` | `""` | no |
-| healthcheck\_retries | load balancer healthcheck retries | `number` | `2` | no |
-| healthcheck\_start\_period | load balancer healthcheck start period | `number` | `120` | no |
-| healthcheck\_timeout | load balancer healthcheck timeout | `string` | `""` | no |
-| healthy\_threshold | load balancer healthcheck threshold | `string` | `""` | no |
-| https\_listeners | A list of maps describing the HTTPS listeners for this ALB. Required key/values: port, certificate\_arn. Optional key/values: ssl\_policy (defaults to ELBSecurityPolicy-2016-08), target\_group\_index (defaults to https\_listeners[count.index]) | `any` | `[]` | no |
-| is\_public | load balancer public or private | `string` | `"false"` | no |
-| lb\_action\_type | load balancer action type | `string` | `"forward"` | no |
-| lb\_port | load balancer port | `list` | <pre>[<br>  80<br>]</pre> | no |
-| lb\_protocol | load balancer protocol | `string` | `"HTTP"` | no |
-| lb\_type | load balancer type | `string` | `"application"` | no |
-| prjid | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `any` | n/a | yes |
-| profile\_to\_use | Getting values from ~/.aws/credentials | `any` | n/a | yes |
-| security\_groups\_to\_use | Security groups to use | `list` | `[]` | no |
-| target\_group\_arn | target group arn | `list(any)` | n/a | yes |
-| teamid | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `any` | n/a | yes |
-| unhealthy\_threshold | load balancer unhealthy threshold | `string` | `""` | no |
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | aws account id | `string` | n/a | yes |
+| <a name="input_alb_cert_arn"></a> [alb\_cert\_arn](#input\_alb\_cert\_arn) | application load balancer certificate arn | `string` | `""` | no |
+| <a name="input_alb_ssl_policy"></a> [alb\_ssl\_policy](#input\_alb\_ssl\_policy) | application load balancer ssl policy | `string` | `""` | no |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region to create resources | `string` | `"us-west-2"` | no |
+| <a name="input_is_public"></a> [is\_public](#input\_is\_public) | load balancer public or private | `string` | `"false"` | no |
+| <a name="input_lb_action_type"></a> [lb\_action\_type](#input\_lb\_action\_type) | load balancer action type | `string` | `"forward"` | no |
+| <a name="input_lb_port"></a> [lb\_port](#input\_lb\_port) | load balancer port | `list(any)` | <pre>[<br>  80<br>]</pre> | no |
+| <a name="input_lb_protocol"></a> [lb\_protocol](#input\_lb\_protocol) | load balancer protocol | `string` | `"HTTP"` | no |
+| <a name="input_lb_type"></a> [lb\_type](#input\_lb\_type) | load balancer type | `string` | `"application"` | no |
+| <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
+| <a name="input_profile_to_use"></a> [profile\_to\_use](#input\_profile\_to\_use) | Getting values from ~/.aws/credentials | `string` | `"default"` | no |
+| <a name="input_security_groups_to_use"></a> [security\_groups\_to\_use](#input\_security\_groups\_to\_use) | Security groups to use | `list(any)` | `[]` | no |
+| <a name="input_target_group_arn"></a> [target\_group\_arn](#input\_target\_group\_arn) | target group arn | `list(any)` | n/a | yes |
+| <a name="input_teamid"></a> [teamid](#input\_teamid) | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| lb\_arn | arn of the load balancer |
-| lb\_id | load balancer id |
-| lb\_listener | load balancer listener |
-| lb\_type | load balancer type |
-| lb\_zoneid | zone id of the load balancer |
+| <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | arn of the load balancer |
+| <a name="output_lb_id"></a> [lb\_id](#output\_lb\_id) | load balancer id |
+| <a name="output_lb_listener"></a> [lb\_listener](#output\_lb\_listener) | load balancer listener |
+| <a name="output_lb_type"></a> [lb\_type](#output\_lb\_type) | load balancer type |
+| <a name="output_lb_zoneid"></a> [lb\_zoneid](#output\_lb\_zoneid) | zone id of the load balancer |
+
