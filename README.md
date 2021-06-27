@@ -163,4 +163,3 @@ Please refer to examples directory [link](examples) for references.
 | <a name="output_lb_listener"></a> [lb\_listener](#output\_lb\_listener) | load balancer listener |
 | <a name="output_lb_type"></a> [lb\_type](#output\_lb\_type) | load balancer type |
 | <a name="output_lb_zoneid"></a> [lb\_zoneid](#output\_lb\_zoneid) | zone id of the load balancer |
-
