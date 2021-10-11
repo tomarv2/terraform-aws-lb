@@ -114,7 +114,7 @@ Please refer to examples directory [link](examples) for references.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.47 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.47 |
 
 ## Providers
 
@@ -159,6 +159,7 @@ Please refer to examples directory [link](examples) for references.
 | Name | Description |
 |------|-------------|
 | <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | arn of the load balancer |
+| <a name="output_lb_dns_name"></a> [lb\_dns\_name](#output\_lb\_dns\_name) | load balancer dns name |
 | <a name="output_lb_id"></a> [lb\_id](#output\_lb\_id) | load balancer id |
 | <a name="output_lb_listener"></a> [lb\_listener](#output\_lb\_listener) | load balancer listener |
 | <a name="output_lb_type"></a> [lb\_type](#output\_lb\_type) | load balancer type |

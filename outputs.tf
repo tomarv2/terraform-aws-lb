@@ -22,3 +22,8 @@ output "lb_zoneid" {
   description = "zone id of the load balancer"
   value       = aws_lb.lb.*.zone_id
 }
+
+output "lb_dns_name" {
+  description = "load balancer dns name"
+  value       = join(", ", aws_lb.lb.*.dns_name)
+}
