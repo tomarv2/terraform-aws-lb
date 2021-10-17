@@ -138,3 +138,9 @@ variable "enable_cross_zone_load_balancing" {
   type        = string
 }
 */
+
+variable "deploy_lb" {
+  description = "feature flag, true or false"
+  default     = true
+  type        = bool
+}

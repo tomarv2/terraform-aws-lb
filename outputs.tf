@@ -1,5 +1,5 @@
 output "lb_arn" {
-  description = "arn of the load balancer"
+  description = "load balancer arn"
   value       = aws_lb.lb.*.arn
 }
 
@@ -19,7 +19,7 @@ output "lb_listener" {
 }
 
 output "lb_zoneid" {
-  description = "zone id of the load balancer"
+  description = "load balancer zone id"
   value       = aws_lb.lb.*.zone_id
 }
 

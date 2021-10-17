@@ -1,6 +1,6 @@
 # lb
 resource "aws_lb" "lb" {
-  count = length(var.lb_port)
+  count = var.deploy_lb != false ? length(var.lb_port) : 0
 
   name                             = "${var.teamid}-${var.prjid}-${element(var.lb_port, count.index)}"
   internal                         = var.is_public
@@ -13,7 +13,7 @@ resource "aws_lb" "lb" {
 
 # listener
 resource "aws_lb_listener" "listener" {
-  count = length(var.lb_port)
+  count = var.deploy_lb != false ? length(var.lb_port) : 0
 
   load_balancer_arn = element(aws_lb.lb.*.id, count.index)
   port              = element(var.lb_port, count.index)
