@@ -141,10 +141,10 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | aws account id | `string` | n/a | yes |
+| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The AWS account to create resources | `string` | `null` | no |
 | <a name="input_alb_cert_arn"></a> [alb\_cert\_arn](#input\_alb\_cert\_arn) | application load balancer certificate arn | `string` | `""` | no |
 | <a name="input_alb_ssl_policy"></a> [alb\_ssl\_policy](#input\_alb\_ssl\_policy) | application load balancer ssl policy | `string` | `""` | no |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region to create resources | `string` | n/a | yes |
+| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region to create resources | `string` | `null` | no |
 | <a name="input_deploy_lb"></a> [deploy\_lb](#input\_deploy\_lb) | feature flag, true or false | `bool` | `true` | no |
 | <a name="input_is_public"></a> [is\_public](#input\_is\_public) | load balancer public or private | `string` | `"false"` | no |
 | <a name="input_lb_action_type"></a> [lb\_action\_type](#input\_lb\_action\_type) | load balancer action type | `string` | `"forward"` | no |
@@ -166,4 +166,3 @@ Please refer to examples directory [link](examples) for references.
 | <a name="output_lb_listener"></a> [lb\_listener](#output\_lb\_listener) | load balancer listener |
 | <a name="output_lb_type"></a> [lb\_type](#output\_lb\_type) | load balancer type |
 | <a name="output_lb_zoneid"></a> [lb\_zoneid](#output\_lb\_zoneid) | load balancer zone id |
-

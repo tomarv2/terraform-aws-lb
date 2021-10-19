@@ -2,7 +2,6 @@ module "load_balancer" {
   source = "../"
 
   account_id       = "123456789012"
-  aws_region       = "us-west-2"
   lb_port          = ["80"]
   target_group_arn = ["<target_group_arn>"]
   # ----------------------------------------------

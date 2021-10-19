@@ -16,11 +16,13 @@ variable "security_groups_to_use" {
 
 variable "aws_region" {
   description = "The AWS region to create resources"
+  default     = null
   type        = string
 }
 
 variable "account_id" {
-  description = "aws account id"
+  description = "The AWS account to create resources"
+  default     = null
   type        = string
 }
 
