@@ -14,18 +14,6 @@ variable "security_groups" {
   type        = list(any)
 }
 
-variable "aws_region" {
-  description = "The AWS region to create resources"
-  default     = null
-  type        = string
-}
-
-variable "account_id" {
-  description = "The AWS account to create resources"
-  default     = null
-  type        = string
-}
-
 variable "is_public" {
   description = "load balancer public or private"
   default     = "false"
