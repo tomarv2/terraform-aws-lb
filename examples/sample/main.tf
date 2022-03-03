@@ -1,5 +1,5 @@
 module "load_balancer" {
-  source = "../"
+  source = "../../"
 
   account_id       = "123456789012"
   lb_port          = ["80"]
