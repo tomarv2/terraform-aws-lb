@@ -112,7 +112,7 @@ Please refer to examples directory [link](examples) for references.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.63 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.63 |
 
 ## Providers
 
@@ -139,20 +139,18 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | The AWS account to create resources | `string` | `null` | no |
 | <a name="input_alb_cert_arn"></a> [alb\_cert\_arn](#input\_alb\_cert\_arn) | application load balancer certificate arn | `string` | `""` | no |
 | <a name="input_alb_ssl_policy"></a> [alb\_ssl\_policy](#input\_alb\_ssl\_policy) | application load balancer ssl policy | `string` | `""` | no |
-| <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | The AWS region to create resources | `string` | `null` | no |
 | <a name="input_deploy_lb"></a> [deploy\_lb](#input\_deploy\_lb) | feature flag, true or false | `bool` | `true` | no |
 | <a name="input_is_public"></a> [is\_public](#input\_is\_public) | load balancer public or private | `string` | `"false"` | no |
 | <a name="input_lb_action_type"></a> [lb\_action\_type](#input\_lb\_action\_type) | load balancer action type | `string` | `"forward"` | no |
 | <a name="input_lb_port"></a> [lb\_port](#input\_lb\_port) | load balancer port | `list(any)` | <pre>[<br>  80<br>]</pre> | no |
 | <a name="input_lb_protocol"></a> [lb\_protocol](#input\_lb\_protocol) | load balancer protocol | `string` | `"HTTP"` | no |
 | <a name="input_lb_type"></a> [lb\_type](#input\_lb\_type) | load balancer type | `string` | `"application"` | no |
-| <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_security_groups"></a> [security\_groups\_to\_use](#input\_security\_groups\_to\_use) | Security groups to use | `list(any)` | `[]` | no |
+| <a name="input_prjid"></a> [prjid](#input\_prjid) | Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
+| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups to use | `list(any)` | `[]` | no |
 | <a name="input_target_group_arn"></a> [target\_group\_arn](#input\_target\_group\_arn) | target group arn | `list(any)` | n/a | yes |
-| <a name="input_teamid"></a> [teamid](#input\_teamid) | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
+| <a name="input_teamid"></a> [teamid](#input\_teamid) | Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 
 ## Outputs
 
