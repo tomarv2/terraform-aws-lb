@@ -7,7 +7,7 @@ resource "aws_lb" "lb" {
   load_balancer_type               = var.lb_type
   subnets                          = module.global.list_of_subnets[local.account_info][local.override_aws_region]
   enable_cross_zone_load_balancing = var.lb_type == "application" ? false : true
-  security_groups                  = var.lb_type == "application" ? flatten([var.security_groups_to_use]) : null
+  security_groups                  = var.lb_type == "application" ? flatten([var.security_groups]) : null
   tags                             = merge(local.shared_tags)
 }
 

@@ -152,7 +152,7 @@ Please refer to examples directory [link](examples) for references.
 | <a name="input_lb_protocol"></a> [lb\_protocol](#input\_lb\_protocol) | load balancer protocol | `string` | `"HTTP"` | no |
 | <a name="input_lb_type"></a> [lb\_type](#input\_lb\_type) | load balancer type | `string` | `"application"` | no |
 | <a name="input_prjid"></a> [prjid](#input\_prjid) | (Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_security_groups_to_use"></a> [security\_groups\_to\_use](#input\_security\_groups\_to\_use) | Security groups to use | `list(any)` | `[]` | no |
+| <a name="input_security_groups"></a> [security\_groups\_to\_use](#input\_security\_groups\_to\_use) | Security groups to use | `list(any)` | `[]` | no |
 | <a name="input_target_group_arn"></a> [target\_group\_arn](#input\_target\_group\_arn) | target group arn | `list(any)` | n/a | yes |
 | <a name="input_teamid"></a> [teamid](#input\_teamid) | (Required) Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
 
