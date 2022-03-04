@@ -62,7 +62,7 @@ variable "target_group_arn" {
 }
 
 variable "deploy_lb" {
-  description = "feature flag, true or false"
+  description = "Feature flag, true or false"
   default     = true
   type        = bool
 }
