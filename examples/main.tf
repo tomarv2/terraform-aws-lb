@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.0.1"
   required_providers {
     aws = {
-      version = "~> 3.74"
+      version = "~> 4.35"
     }
   }
 }
@@ -12,10 +12,19 @@ provider "aws" {
 }
 
 module "load_balancer" {
-  source = "../../"
+  source = "../"
 
-  lb_port          = ["80"]
-  target_group_arn = ["<target_group_arn>"]
+  config = {
+    testlb = {
+      port             = "80"
+      target_group_arn = "1"
+    }
+    testlb1 = {
+      port             = "443"
+      target_group_arn = "2"
+    }
+  }
+
   # ----------------------------------------------
   # Note: Do not change teamid and prjid once set.
   teamid = var.teamid

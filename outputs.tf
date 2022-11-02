@@ -1,29 +1,33 @@
-output "lb_arn" {
-  description = "load balancer arn"
-  value       = aws_lb.lb.*.arn
+output "arn" {
+  description = "ARN of the Load balancer"
+  value       = [for lb in aws_lb.this : lb.arn]
 }
-
-output "lb_type" {
-  description = "load balancer type"
-  value       = aws_lb.lb.*.load_balancer_type
-}
-
-output "lb_id" {
-  description = "load balancer id"
-  value       = aws_lb.lb.*.id
-}
-
-output "lb_listener" {
-  description = "load balancer listener"
-  value       = aws_lb_listener.listener
-}
-
-output "lb_zoneid" {
-  description = "load balancer zone id"
-  value       = aws_lb.lb.*.zone_id
-}
-
-output "lb_dns_name" {
-  description = "load balancer dns name"
-  value       = join(", ", aws_lb.lb.*.dns_name)
-}
+#
+#output "lb_id" {
+#  description = "load balancer id"
+#  value       = [for lb in aws_lb.this : lb.id]
+#}
+#
+#output "lb_zone_id" {
+#  description = "Load balancer zone id"
+#  value       = [for lb in aws_lb.this : lb.zone_id]
+#}
+#
+#output "lb_dns_name" {
+#  description = "Load balancer DNS name"
+#  value       = [for lb in aws_lb.this : lb.dns_name]
+#}
+#
+#output "lb_listener_arn" {
+#  description = "Load balancer listener arn"
+#  value       = [for listener in aws_lb_listener.this : listener.arn]
+#}
+#
+#output "lb_listener_id" {
+#  description = "Load balancer listener id"
+#  value       = [for listener in aws_lb_listener.this : listener.id]
+#}
+#
+##output "target_group_arn" {
+##  value = [for target_group in module.target_group : target_group.arn]
+##}
