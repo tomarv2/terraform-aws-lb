@@ -18,7 +18,7 @@
 ### Versions
 
 - Module tested for Terraform 1.0.1.
-- AWS provider version [3.74](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- AWS provider version [4.35](https://registry.terraform.io/providers/hashicorp/aws/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases.
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-aws-lb/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-lb" /></a>).
@@ -84,22 +84,6 @@ tf -c=aws destroy -var='teamid=foo' -var='prjid=bar'
 ```
 
 **Note:** Read more on [tfremote](https://github.com/tomarv2/tfremote)
-##### Network Load Balancer
-
-```
-module "load_balancer" {
-  source                      = "../"
-
-  account_id                  = "123456789012"
-  aws_region                  = "us-west-2"
-  lb_port                     = ["80"]
-  target_group_arn            = ["target_group_arn"]
-  # ----------------------------------------------
-  # Note: Do not change teamid and prjid once set.
-  teamid                      = var.teamid
-  prjid                       = var.prjid
-}
-```
 
 Please refer to examples directory [link](examples) for references.
 
@@ -109,13 +93,13 @@ Please refer to examples directory [link](examples) for references.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.74 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.35 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.74 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.35 |
 
 ## Modules
 
@@ -127,8 +111,8 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Type |
 |------|------|
-| [aws_lb.lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
-| [aws_lb_listener.listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
+| [aws_lb.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) | resource |
+| [aws_lb_listener.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -136,27 +120,12 @@ Please refer to examples directory [link](examples) for references.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_alb_cert_arn"></a> [alb\_cert\_arn](#input\_alb\_cert\_arn) | application load balancer certificate arn | `string` | `""` | no |
-| <a name="input_alb_ssl_policy"></a> [alb\_ssl\_policy](#input\_alb\_ssl\_policy) | application load balancer ssl policy | `string` | `""` | no |
-| <a name="input_deploy_lb"></a> [deploy\_lb](#input\_deploy\_lb) | Feature flag, true or false | `bool` | `true` | no |
-| <a name="input_is_public"></a> [is\_public](#input\_is\_public) | load balancer public or private | `string` | `"false"` | no |
-| <a name="input_lb_action_type"></a> [lb\_action\_type](#input\_lb\_action\_type) | load balancer action type | `string` | `"forward"` | no |
-| <a name="input_lb_port"></a> [lb\_port](#input\_lb\_port) | load balancer port | `list(any)` | <pre>[<br>  80<br>]</pre> | no |
-| <a name="input_lb_protocol"></a> [lb\_protocol](#input\_lb\_protocol) | load balancer protocol | `string` | `"HTTP"` | no |
-| <a name="input_lb_type"></a> [lb\_type](#input\_lb\_type) | load balancer type | `string` | `"application"` | no |
-| <a name="input_prjid"></a> [prjid](#input\_prjid) | Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply' | `string` | n/a | yes |
-| <a name="input_security_groups"></a> [security\_groups](#input\_security\_groups) | Security groups to use | `list(any)` | `[]` | no |
-| <a name="input_target_group_arn"></a> [target\_group\_arn](#input\_target\_group\_arn) | target group arn | `list(any)` | n/a | yes |
-| <a name="input_teamid"></a> [teamid](#input\_teamid) | Name of the team/group e.g. devops, dataengineering. Should not be changed after running 'tf apply' | `string` | n/a | yes |
+| <a name="input_config"></a> [config](#input\_config) | Load balancer configuration | `map(any)` | `{}` | no |
+| <a name="input_extra_tags"></a> [extra\_tags](#input\_extra\_tags) | Additional tags to associate | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_lb_arn"></a> [lb\_arn](#output\_lb\_arn) | load balancer arn |
-| <a name="output_lb_dns_name"></a> [lb\_dns\_name](#output\_lb\_dns\_name) | load balancer dns name |
-| <a name="output_lb_id"></a> [lb\_id](#output\_lb\_id) | load balancer id |
-| <a name="output_lb_listener"></a> [lb\_listener](#output\_lb\_listener) | load balancer listener |
-| <a name="output_lb_type"></a> [lb\_type](#output\_lb\_type) | load balancer type |
-| <a name="output_lb_zoneid"></a> [lb\_zoneid](#output\_lb\_zoneid) | load balancer zone id |
+| <a name="output_arn"></a> [arn](#output\_arn) | ARN of the Load balancer |
 <!-- END_TF_DOCS -->

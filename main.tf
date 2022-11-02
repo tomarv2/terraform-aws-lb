@@ -1,28 +1,29 @@
 # lb
-resource "aws_lb" "lb" {
-  count = var.deploy_lb != false ? length(var.lb_port) : 0
+resource "aws_lb" "this" {
+  for_each = var.config
 
-  name                             = "${var.teamid}-${var.prjid}-${element(var.lb_port, count.index)}"
-  internal                         = var.is_public
-  load_balancer_type               = var.lb_type
-  subnets                          = module.global.list_of_subnets[local.account_id][local.region]
-  enable_cross_zone_load_balancing = var.lb_type == "application" ? false : true
-  security_groups                  = var.lb_type == "application" ? flatten([var.security_groups]) : null
-  tags                             = merge(local.shared_tags)
+  name                             = each.key
+  internal                         = try(each.value.internal, "false")
+  load_balancer_type               = try(each.value.load_balancer_type, "application")
+  subnets                          = try(each.value.subnets, module.global.list_of_subnets[local.account_id][local.region])
+  enable_cross_zone_load_balancing = try(each.value.load_balancer_type, "null") == "application" ? false : true
+  security_groups                  = try(each.value.load_balancer_type, "application") == "application" ? each.value.security_groups : null
+  tags                             = merge(local.shared_tags, var.extra_tags)
 }
 
 # listener
-resource "aws_lb_listener" "listener" {
-  count = var.deploy_lb != false ? length(var.lb_port) : 0
+resource "aws_lb_listener" "this" {
+  for_each = aws_lb.this
 
-  load_balancer_arn = element(aws_lb.lb.*.id, count.index)
-  port              = element(var.lb_port, count.index)
-  protocol          = var.lb_protocol # #var.alb_cert_arn == "" ? "HTTP" : "HTTPS"
-  ssl_policy        = var.alb_ssl_policy == "" ? "" : var.alb_ssl_policy
-  certificate_arn   = var.alb_cert_arn == "" ? "" : var.alb_cert_arn
+  load_balancer_arn = each.value.arn
+  port              = lookup(var.config[each.value.name], "port")
+  protocol          = try(lookup(var.config[each.value.name], "alb_cert_arn"), null) == null ? "HTTP" : "HTTPS"
+  ssl_policy        = lookup(var.config[each.value.name], "alb_ssl_policy", null)
+  certificate_arn   = lookup(var.config[each.value.name], "alb_cert_arn", null)
 
   default_action {
-    target_group_arn = element(local.tg_name, count.index)
-    type             = var.lb_action_type
+    target_group_arn = lookup(var.config[each.value.name], "target_group_arn", null)
+    type             = lookup(var.config[each.value.name], "lb_action_type", "forward")
   }
+  tags = merge(local.shared_tags, var.extra_tags)
 }
